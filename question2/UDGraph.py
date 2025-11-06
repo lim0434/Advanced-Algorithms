@@ -12,7 +12,7 @@ class UDGraph:
         else:
             print("One or both vertices not found.")
 
-    def get_following_list(self, vertex):
+    def listOutgoingAdjacentVertex(self, vertex):
         return self.graph.get(vertex, [])
 
     def get_followers_list(self, vertex_to_find):
