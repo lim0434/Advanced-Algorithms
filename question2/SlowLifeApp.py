@@ -15,21 +15,20 @@ class SlowLife:
     def add_follow(self, follower, following):
         self.my_graph.add_edge(follower, following)
 
-def display_profile_names(app_instance):
-    print("\nView All Profile Names:")
-    print("=======================")
-    for i, person in enumerate(app_instance.profiles, 1):
+def display_profile(app):
+    print("\nAll Profile Names:")
+    for i, person in enumerate(app.profiles, 1):
         print(f"{i}.) {person.get_name()}")
 
-def view_profile_details(app_instance):
+def view_profile_details(app):
     print("\nView Details for Any Profile:")
     print("===========================")
-    display_profile_names(app_instance)
+    display_profile(app)
     try:
-        max_num = len(app_instance.profiles)
+        max_num = len(app.profiles)
         choice = int(input(f"\nSelect whose profile to view (1 - {max_num}): "))
         if 1 <= choice <= max_num:
-            person = app_instance.profiles[choice - 1]
+            person = app.profiles[choice - 1]
 
             print(f"\nName: {person.get_name()}")
             print(f"Gender: {person.gender}")
@@ -39,16 +38,16 @@ def view_profile_details(app_instance):
     except ValueError:
         print("Invalid input. Please enter a number.")
 
-def view_followed_accounts(app_instance):
+def view_followed_accounts(app):
     print("\nView Followed Accounts for Any Profile:")
     print("=======================================")
-    display_profile_names(app_instance)
+    display_profile(app)
     try:
-        max_num = len(app_instance.profiles)
+        max_num = len(app.profiles)
         choice = int(input(f"\nSelect whose profile to view following list (1 - {max_num}): "))
         if 1 <= choice <= max_num:
-            person = app_instance.profiles[choice - 1]
-            following_list = app_instance.my_graph.get_following_list(person)
+            person = app.profiles[choice - 1]
+            following_list = app.my_graph.get_following_list(person)
 
             print(f"\nFollowing list:")
             if following_list:
@@ -61,16 +60,16 @@ def view_followed_accounts(app_instance):
     except ValueError:
         print("Invalid input. Please enter a number.")
 
-def view_followers(app_instance):
+def view_followers(app):
     print("\nView Followers for Any Profile:")
     print("=============================")
-    display_profile_names(app_instance)
+    display_profile(app)
     try:
-        max_num = len(app_instance.profiles)
+        max_num = len(app.profiles)
         choice = int(input(f"\nSelect whose profile to view followers (1 - {max_num}): "))
         if 1 <= choice <= max_num:
-            person = app_instance.profiles[choice - 1]
-            followers_list = app_instance.my_graph.get_followers_list(person)
+            person = app.profiles[choice - 1]
+            followers_list = app.my_graph.get_followers_list(person)
 
             print(f"\nFollowers list:")
             if followers_list:
@@ -83,19 +82,19 @@ def view_followers(app_instance):
     except ValueError:
         print("Invalid input. Please enter a number.")
 
-def add_user_on_demand(app_instance):
+def add_user_on_demand(app):
     print("\nAdd New User Profile On-Demand:")
     print("===============================")
     name = input("Enter the new user's name: ").strip()
     biography = input("Enter their biography: ").strip()
     gender = input("Enter their gender: ").strip()
 
-    for p in app_instance.profiles:
+    for p in app.profiles:
         if p.get_name().lower() == name.lower():
             print(f"Error: A user named '{name}' already exists.")
             return
 
-    app_instance.add_new_profile(name, biography, gender)
+    app.add_new_profile(name, biography, gender)
     print(f"\nSuccess! User '{name}' has been added to Slow Life.")
 
 def main():
@@ -127,7 +126,7 @@ def main():
         choice = input("Enter your choice (1 - 6): ")
 
         if choice == '1':
-            display_profile_names(gram)
+            display_profile(gram)
         elif choice == '2':
             view_profile_details(gram)
         elif choice == '3':
