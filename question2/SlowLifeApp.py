@@ -47,7 +47,7 @@ def view_followed_accounts(app):
         choice = int(input(f"\nSelect whose profile to view following list (1 - {max_num}): "))
         if 1 <= choice <= max_num:
             person = app.profiles[choice - 1]
-            following_list = app.my_graph.get_following_list(person)
+            following_list = app.my_graph.listOutgoingAdjacentVertex(person)
 
             print(f"\nFollowing list:")
             if following_list:
@@ -88,30 +88,36 @@ def add_user_on_demand(app):
     name = input("Enter the new user's name: ").strip()
     biography = input("Enter their biography: ").strip()
     gender = input("Enter their gender: ").strip()
+    privacy_input = input("Set account privacy (public/private) [default: public]: ").strip().lower()
+
+    if privacy_input == 'private':
+        privacy = 'private'
+    else:
+        privacy = 'public'
 
     for p in app.profiles:
         if p.get_name().lower() == name.lower():
             print(f"Error: A user named '{name}' already exists.")
             return
 
-    app.add_new_profile(name, biography, gender)
-    print(f"\nSuccess! User '{name}' has been added to Slow Life.")
+    app.add_new_profile(name, biography, gender, privacy=privacy)
+    print(f"\nSuccess! User '{name}' has been added to Slow Life with {privacy} privacy.")
 
 def main():
-    gram = SlowLife()
+    life = SlowLife()
 
-    katie = gram.add_new_profile("Katie", "Just a normal person", "Female")
-    susan = gram.add_new_profile("Susan", "This profile is private.", "Female", privacy="private")
-    justin = gram.add_new_profile("Justin", "Just an ordinary manager", "Male")
-    chris = gram.add_new_profile("Chris", "Just an ordinary kid", "Male")
-    alan = gram.add_new_profile("Alan", "Just a hardworking man", "Male")
+    katie = life.add_new_profile("Katie", "Just a normal person", "Female")
+    susan = life.add_new_profile("Susan", "This profile is private.", "Female", privacy="private")
+    justin = life.add_new_profile("Justin", "Just an ordinary manager", "Male")
+    chris = life.add_new_profile("Chris", "Just an ordinary kid", "Male")
+    alan = life.add_new_profile("Alan", "Just a hardworking man", "Male")
 
-    gram.add_follow(katie, susan)
-    gram.add_follow(katie, justin)
-    gram.add_follow(katie, alan)
-    gram.add_follow(alan, katie)
-    gram.add_follow(alan, chris)
-    gram.add_follow(justin, susan)
+    life.add_follow(katie, susan)
+    life.add_follow(katie, justin)
+    life.add_follow(katie, alan)
+    life.add_follow(alan, katie)
+    life.add_follow(alan, chris)
+    life.add_follow(justin, susan)
 
     while True:
         print("\nWelcome to Slow Life, Your New Social Media App:")
@@ -126,15 +132,15 @@ def main():
         choice = input("Enter your choice (1 - 6): ")
 
         if choice == '1':
-            display_profile(gram)
+            display_profile(life)
         elif choice == '2':
-            view_profile_details(gram)
+            view_profile_details(life)
         elif choice == '3':
-            view_followers(gram)
+            view_followers(life)
         elif choice == '4':
-            view_followed_accounts(gram)
+            view_followed_accounts(life)
         elif choice == '5':
-            add_user_on_demand(gram)
+            add_user_on_demand(life)
         elif choice == '6':
             print("Exiting Slow Life. Goodbye!")
             break
