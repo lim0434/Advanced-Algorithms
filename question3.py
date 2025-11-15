@@ -11,6 +11,7 @@ print("\nTesting factorial function:")
 print(f"Factorial of 5: {factorial(5)}")
 print("Function works correctly!\n")
 
+# part 3
 def multithreading_factorial(rounds=10):
     numbers = [50, 100, 200]
     print("--- Multithreading ---")
@@ -34,6 +35,7 @@ def multithreading_factorial(rounds=10):
     print(f"Average time: {avg_time:.0f} ns\n")
     return avg_time, total_time
 
+# part 4
 def without_threads(rounds=10):
     numbers = [50, 100, 200]
     print("--- Without Multithreading ---")
@@ -54,6 +56,7 @@ def without_threads(rounds=10):
     print(f"Average time: {avg_time:.0f} ns\n")
     return avg_time, total_time
 
+# part 5
 def compare_times(mt_avg, st_avg):
     print("--- Comparison ---")
     print(f"Average time (multithreading): {mt_avg:.0f} ns")
