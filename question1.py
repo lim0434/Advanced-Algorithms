@@ -1,6 +1,4 @@
 import time
-from operator import index
-#Part 1
 class Node:
     def __init__(self, product):
         self.product = product
@@ -60,11 +58,10 @@ class HashTable:
             return True
         return False
 
-    def __delete__(self, product_id):
+    def delete(self, product_id):
         index = self.hash_function(product_id)
         current = self.table[index]
         prev = None
-
         while current:
             if current.product.product_id == product_id:
                 if prev is None:
@@ -79,11 +76,9 @@ class HashTable:
 
     def display_all(self):
         print("All Product in Inventory:")
-
         if self.count == 0:
             print("No products in inventory.")
             return
-
         for i in range(self.size):
             if self.table[i]:
                 current = self.table[i]
